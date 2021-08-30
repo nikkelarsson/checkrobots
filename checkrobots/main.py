@@ -1,5 +1,5 @@
 """
-main.py – Web 'spider' that checks sites, an if they allow webscraping.
+main.py – Web 'spider' that checks sites, and if they allow webscraping.
 Author: Niklas Larsson
 Date: 29.8.2021
 """
