@@ -6,12 +6,6 @@ Date: 29.8.2021
 
 import requests
 import sys
-import os
-
-
-# This will be used to determine the language this
-# program generally will output its information with.
-LANG: str = os.getenv("LANG")
 
 
 def print_headers(headers: dict, limit=None, sort: bool=True) -> None:
@@ -94,20 +88,12 @@ def main(args: list=sys.argv) -> None:
     url_simple: str = ""
     url_formatted: str = ""
 
-    # Go through the cmd line -args.
     for index, arg in enumerate(args):
         if (index == 0):
             continue
 
-        # Check long flags (needs to be checked before short ones!).
-        if (arg.startswith("--")):
-            if (arg == "--verbose"):
-                verbose = True
-            elif (arg == "--headers"):
-                headers = True
-
         # Check short flags.
-        elif (arg.startswith("-")):
+        if (arg.startswith("-")):
             for index, char in enumerate(arg):
                 if (index == 0):
                     continue
@@ -116,8 +102,20 @@ def main(args: list=sys.argv) -> None:
                 elif (char == "v"):
                     verbose = True
 
-        # Assume the arg is NOT a flag, when it
-        # is not prefixed with hyphen(s) ('-').
+        # Check long flags.
+        long_flag: str = ""
+        elif (arg.startswith("--")):
+            for index, flag in enumerate(arg):
+                if (index == 0) or (index == 1):
+                    continue
+
+
+#        if (arg == "-H") or (arg == "--include-headers"):
+#            headers = True
+#            args_checked.append(arg)
+#        elif (arg == "-v") or (arg == "--verbose"):
+#            verbose = True
+#            args_checked.append(arg)
         if not(arg.startswith("-") or arg.startswith("--")):
             url_simple = arg
 
