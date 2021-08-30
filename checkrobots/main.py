@@ -7,6 +7,7 @@ Date: 29.8.2021
 import requests
 import sys
 import os
+from textwrap import dedent
 
 
 # This will be used to determine the language this
@@ -17,6 +18,8 @@ LANG: str = os.getenv("LANG")
 # the easiest to grab the name from the cmd
 # line -args, which is always the first arg.
 NAME: str = sys.argv[0]
+
+VERSION: str = "1.0"
 
 
 def print_headers(headers: dict, limit=None, sort: bool=True) -> None:
@@ -141,7 +144,7 @@ def main(args: list=sys.argv) -> None:
 
         # Assume the arg is NOT a flag, when it
         # is not prefixed with hyphen(s) ('-').
-        if not(arg.startswith("-") or arg.startswith("--")):
+        else:
             url_simple = arg
 
     # Fetch data and present it only if
@@ -155,6 +158,11 @@ def main(args: list=sys.argv) -> None:
                 verbose=False if not (verbose) else True,
                 headers=False if not (headers) else True
                 )
+    else:
+        sys.exit(dedent("""
+                {0} {1}, utility that can check websites robots.txt.
+                Usage: {0} [options] <short_url>
+                """.format(NAME, VERSION)).strip())
 
 
 if (__name__ == "__main__"):
