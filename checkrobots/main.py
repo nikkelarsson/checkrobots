@@ -13,6 +13,11 @@ import os
 # program generally will output its information with.
 LANG: str = os.getenv("LANG")
 
+# The name of this program. It is just
+# the easiest to grab the name from the cmd
+# line -args, which is always the first arg.
+NAME: str = sys.argv[0]
+
 
 def print_headers(headers: dict, limit=None, sort: bool=True) -> None:
     """
@@ -87,6 +92,24 @@ def print_all(url: str, verbose: bool, headers: bool) -> None:
     print_robots(response.text)
 
 
+def gen_long_url(short_url: str) -> str:
+    """
+    Generate a valid, 'long' url from a 'shorter' url.
+
+    Parameters
+    ----------
+    short_url...... 'Short' url, for example "google".
+    """
+    if (short_url == "youtube"):
+        long_url = "https://www.youtube.com/robots.txt"
+    elif (short_url == "google"):
+        long_url = "https://www.google.fi/robots.txt"
+    else:
+        sys.exit("{}: Info: '{}' not recognized ..".format(NAME, short_url))
+
+    return long_url
+
+
 def main(args: list=sys.argv) -> None:
     headers: bool = False
     verbose: bool = False
@@ -121,14 +144,12 @@ def main(args: list=sys.argv) -> None:
         if not(arg.startswith("-") or arg.startswith("--")):
             url_simple = arg
 
+    # Fetch data and present it only if
+    # a abbreviated url was present.
+    # Program usage -message could be printed
+    # otherwise, to show the user how to use the program.
     if (url_simple):
-        if (url_simple == "youtube"):
-            url_formatted = "https://www.youtube.com/robots.txt"
-        elif (url_simple == "google"):
-            url_formatted = "https://www.google.fi/robots.txt"
-        else:
-            sys.exit("{}: Info: '{}' not recognized ..".format(args[0], url_simple))
-
+        url_formatted = gen_long_url(url_simple) 
         print_all(
                 url_formatted,
                 verbose=False if not (verbose) else True,
