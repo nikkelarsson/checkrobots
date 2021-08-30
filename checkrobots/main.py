@@ -33,6 +33,7 @@ def print_robots(robots: str, sort: bool=True) -> None:
 
     Parameters
     ----------
+    robots....... The actual robots.txt content in plain/text.
     sort......... Alphabetically sort the 'rool' fields.
     """
     scraping_not_suitable: bool = "Allow" not in robots
