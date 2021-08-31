@@ -75,7 +75,7 @@ def get_response(url: str, bar: bool) -> object:
             print("Trying to fetch robots.txt ...")
             print("[Address]: {}".format(url))
         response: object = requests.get(url)
-        print("Fetched robots.txt ...") if (bar) else print(end="")
+        print("Fetched robots.txt successfully ...") if (bar) else print(end="")
         allowed: int = 0
         for line in response.text.split("\n"):
             allowed += 1 if (line.startswith("Allow")) else 0
@@ -117,7 +117,7 @@ def gen_long_url(short_url: str) -> str:
     elif (short_url == "google"):
         long_url = "https://www.google.fi/robots.txt"
     else:
-        sys.exit("{}: Info: '{}' not recognized ..".format(NAME, short_url))
+        sys.exit("{}: Error: '{}' is not recognized ...".format(NAME, short_url))
 
     return long_url
 
