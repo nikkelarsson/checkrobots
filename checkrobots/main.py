@@ -49,11 +49,16 @@ def print_robots(robots: str, sort: bool=True) -> None:
     sort......... Alphabetically sort the 'rool' fields.
     """
     scraping_not_suitable: bool = "Allow" not in robots
-    print("----- ROBOTS.TXT -----")
     if (scraping_not_suitable):
         print("PLEASE NOTE, THAT WE DON'T ALLOW SCRAPING THIS SITE.")
     else:
-        print(robots)
+        print("----- ROBOTS.TXT -----")
+        endpoints: list = []
+        for line in robots.split("\n"):
+            if (line.startswith("Allow")):
+                endpoints.append(line.replace("Allow: ", ""))
+        for index, line in enumerate(endpoints):
+            print("Endpoint [{}] --> {}".format(index, line.strip()))
 
 
 def get_response(url: str, bar: bool) -> object:
@@ -70,7 +75,12 @@ def get_response(url: str, bar: bool) -> object:
             print("Trying to fetch robots.txt ...")
             print("[Address]: {}".format(url))
         response: object = requests.get(url)
+        print("Fetched robots.txt ...") if (bar) else print(end="")
+        allowed: int = 0
+        for line in response.text.split("\n"):
+            allowed += 1 if (line.startswith("Allow")) else 0
         print() if (bar) else print(end="")
+        print("Found {} allowed endpoints ...".format(allowed))
     except requests.ConnectionError as exception:
         sys.exit("{}: Error: Couldn't connect to {} ...".format(sys.argv[0], url))
     
