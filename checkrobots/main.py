@@ -124,10 +124,7 @@ def gen_long_url(short_url: str) -> str:
 
 def main(args: list=sys.argv) -> None:
     headers: bool = False
-    header_limit: bool = False
-    header_limit_count: int
     verbose: bool = False
-    args_checked: list = [] # List of arg names that are already checked.
     url_simple: str = ""
     url_formatted: str = ""
 
