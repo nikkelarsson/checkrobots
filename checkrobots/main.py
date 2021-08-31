@@ -22,7 +22,7 @@ NAME: str = sys.argv[0]
 VERSION: str = "1.0"
 
 
-def print_headers(headers: dict, limit=None, sort: bool=True) -> None:
+def print_headers(headers: dict, sort: bool=True) -> None:
     """
     Print the request's headers for xtra info.
     
@@ -35,8 +35,6 @@ def print_headers(headers: dict, limit=None, sort: bool=True) -> None:
     key: int = 0; value: int = 1
     print("----- HEADERS -----")
     for index, pair in enumerate(sorted(headers.items()) if (sort) else headers.items()):
-        if (limit is not None) and (index == limit):
-            break
         print("{}: {}".format(pair[key], pair[value]))
     print()
 
@@ -79,7 +77,7 @@ def get_response(url: str, bar: bool) -> object:
     return response
 
 
-def print_all(url: str, verbose: bool, headers: (bool, int)) -> None:
+def print_all(url: str, verbose: bool, headers: bool) -> None:
     """
     Print out all: the actual robots.txt, and additionally headers.
     
@@ -88,15 +86,11 @@ def print_all(url: str, verbose: bool, headers: (bool, int)) -> None:
     url.......... Use this url to fetch the robots.txt.
     verbose...... Let the output be a little more verbose.
     headers...... Also print the headers in addition to the robots.txt.
-                  Takes in 2 args from which the 1st determines,
-                  if headers will be printed in at all, and the
-                  2nd the limit how many fields of those headers
-                  will be printed.
     """
     response: object = get_response(url, bar=False if not (verbose) else True)
-    if (headers): # Observing headers can offer user more info.
+    if (headers):
         headers_count: int = 1
-        print_headers(response.headers, limit=headers[headers_count])
+        print_headers(response.headers)
     print_robots(response.text)
 
 
@@ -134,18 +128,6 @@ def main(args: list=sys.argv) -> None:
 
         # Check long flags (needs to be checked before short ones!).
         if (arg.startswith("--")):
-            if (arg.startswith("--limit=")):
-                header_limit = True
-                for index, char in enumerate(arg):
-                    if (char == "="): # Count everything after '=' as h-limit.
-                        try:
-                            header_limit_count = int(arg[index:])
-                        except ValueError:
-                            sys.exit("{}: Error: Can't interpret {} as correct value.".format(NAME, arg[index:]))
-
-            elif (arg.startswith("--limit")):
-                header_limit = True
-
             if (arg == "--verbose"):
                 verbose = True
             elif (arg == "--headers"):
@@ -166,12 +148,6 @@ def main(args: list=sys.argv) -> None:
         else:
             url_simple = arg
 
-    # Print the correct amount of header fields.
-    #if (headers) and not (header_limit):
-        #pass
-    #elif (headers) and (header_limit):
-        #header_limit_count: int = header_limit
-
     # Fetch data and present it only if
     # a abbreviated url was present.
     # Program usage -message could be printed
@@ -181,10 +157,7 @@ def main(args: list=sys.argv) -> None:
         print_all(
                 url_formatted,
                 verbose=False if not (verbose) else True,
-                headers=(
-                    False if not (headers) else True,
-                    header_limit_count
-                    )
+                headers=False if not (headers) else True,
                 )
     else:
         sys.exit(dedent("""
