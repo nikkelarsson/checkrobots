@@ -130,50 +130,73 @@ def gen_long_url(short_url: str) -> str:
     return long_url
 
 
-def main(args: list=sys.argv) -> None:
-    headers: bool = False
-    verbose: bool = False
-    url_simple: str = ""
-    url_formatted: str = ""
+class ParseArgs:
+    def __init__(self, args: list) -> None:
+        self.args: list = args
+        self.opts_short: list = []
+        self.opts_long: list = []
+        self.verbose: bool = False
+        self.headers: bool = False
+        self.url_simple: str = ""
 
-    # Go through the cmd line -args.
-    for index, arg in enumerate(args):
-        if (index == 0):
-            continue
+    def __str__(self) -> str:
+        return f"Short args: {self.opts_short}, long args: {self.opts_long}"
 
-        # Check long flags (needs to be checked before short ones!).
-        if (arg.startswith("--")):
-            if (arg == "--verbose"):
-                verbose = True
-            elif (arg == "--headers"):
-                headers = True
+    def __repr__(self) -> str:
+        return f"ParseArgs(args={self.args!r})"
 
-        # Check short flags.
-        elif (arg.startswith("-")):
+    def sort_args(self) -> None:
+        for index, arg in enumerate(self.args):
+            if (index == 0):
+                continue
+            if (arg.startswith("--")):
+                self.opts_long.append(arg)
+            elif (arg.startswith("-")):
+                self.opts_short.append(arg)
+            else:
+                if not (self.url_simple):
+                    self.url_simple = arg
+
+    def parse_args_short(self):
+        for arg in self.opts_short:
             for index, char in enumerate(arg):
                 if (index == 0):
                     continue
-                if (char == "H"):
-                    headers = True
-                elif (char == "v"):
-                    verbose = True
+                self.verbose = char == "v"
+                self.headers = char == "H"
 
-        # Assume the arg is NOT a flag, when it
-        # is not prefixed with hyphen(s) ('-').
-        else:
-            url_simple = arg
+    def parse_args_long(self):
+        for arg in self.opts_long:
+            self.verbose = arg == "--verbose"
+            self.headers = arg == "--headers"
 
-    # Fetch data and present it only if
-    # a abbreviated url was present.
-    # Program usage -message could be printed
-    # otherwise, to show the user how to use the program.
+    def parse_args(self):
+        self.sort_args()
+        self.parse_args_short()
+        self.parse_args_long()
+
+    def verbose(self) -> bool:
+        return self.verbose
+
+    def headers(self) -> bool:
+        return self.headers
+
+    def get_url_simple(self):
+        return self.url_simple
+
+
+def main(args: list=sys.argv) -> None:
+    parsed: object = ParseArgs(args)
+    parsed.parse_args()
+    #headers: bool = parsed.headers()
+    #verbose: bool = parsed.verbose()
+    url_simple: str = parsed.get_url_simple()
+    url_formatted: str = ""
+
     if (url_simple):
         url_formatted = gen_long_url(url_simple) 
-        print_all(
-                url_formatted,
-                verbose=False if not (verbose) else True,
-                headers=False if not (headers) else True,
-                )
+        print_all(url_formatted, verbose=False if not (verbose) else True,
+                  headers=False if not (headers) else True,)
     else:
         sys.exit(dedent("""
                 {0} {1}, utility that can check websites robots.txt.
