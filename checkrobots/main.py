@@ -200,7 +200,7 @@ def main(args: list=sys.argv) -> None:
     else:
         sys.exit(dedent("""
                 {0} {1}, utility that can check websites robots.txt.
-                Usage: {0} [options] <short_url>
+                Usage: {0} [options] <website_name>
                 """.format(NAME, VERSION)).strip())
 
 
