@@ -175,10 +175,10 @@ class ParseArgs:
         self.parse_args_short()
         self.parse_args_long()
 
-    def verbose(self) -> bool:
+    def is_verbose(self) -> bool:
         return self.verbose
 
-    def headers(self) -> bool:
+    def is_headers(self) -> bool:
         return self.headers
 
     def get_url_simple(self):
@@ -188,8 +188,8 @@ class ParseArgs:
 def main(args: list=sys.argv) -> None:
     parsed: object = ParseArgs(args)
     parsed.parse_args()
-    #headers: bool = parsed.headers()
-    #verbose: bool = parsed.verbose()
+    headers: bool = parsed.is_headers()
+    verbose: bool = parsed.is_verbose()
     url_simple: str = parsed.get_url_simple()
     url_formatted: str = ""
 
