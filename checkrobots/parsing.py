@@ -30,7 +30,7 @@ class ParseArgs:
                 if not (self.url_simple):
                     self.url_simple = arg
 
-    def parse_args_short(self):
+    def parse_args_short(self) -> None:
         for arg in self.opts_short:
             for index, char in enumerate(arg):
                 if (index == 0):
@@ -38,12 +38,12 @@ class ParseArgs:
                 self.verbose = char == "v"
                 self.headers = char == "H"
 
-    def parse_args_long(self):
+    def parse_args_long(self) -> None:
         for arg in self.opts_long:
             self.verbose = arg == "--verbose"
             self.headers = arg == "--headers"
 
-    def parse_args(self):
+    def parse_args(self) -> None:
         self.sort_args()
         self.parse_args_short()
         self.parse_args_long()
@@ -54,5 +54,5 @@ class ParseArgs:
     def is_headers(self) -> bool:
         return self.headers
 
-    def get_url_simple(self):
+    def get_url_simple(self) -> str:
         return self.url_simple
