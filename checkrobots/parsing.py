@@ -1,6 +1,7 @@
 """
 parsing.py – Gather and parse command line arguments.
 Author: Niklas Larsson
+Date: 2.9.2021
 """
 
 class ParseArgs:
