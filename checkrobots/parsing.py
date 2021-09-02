@@ -12,6 +12,7 @@ class ParseArgs:
         self.verbose: bool = False
         self.headers: bool = False
         self.url_simple: str = ""
+        self.invalid_args: list = []
         self.invalid_prefixes: list = [
                 "-" * index for index, i in enumerate(range(25), 3)
                 ]
@@ -28,7 +29,7 @@ class ParseArgs:
                 continue
             for invalid_prefix in self.invalid_prefixes:
                 if (arg.startswith(invalid_prefix)):
-                    continue
+                    self.invalid_args.append(arg)
                 elif (arg.startswith("--")):
                     self.opts_long.append(arg)
                 elif (arg.startswith("-")):
@@ -60,6 +61,9 @@ class ParseArgs:
 
     def is_headers(self) -> bool:
         return self.headers
+
+    def get_invalid_args(self) -> list:
+        return self.invalid_args
 
     def get_url_simple(self) -> str:
         return self.url_simple

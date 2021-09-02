@@ -136,8 +136,12 @@ def main(args: list=sys.argv) -> None:
     parsed.parse_args()
     headers: bool = parsed.is_headers()
     verbose: bool = parsed.is_verbose()
+    invalid_args: list = parsed.get_invalid_args()
     url_simple: str = parsed.get_url_simple()
     url_formatted: str = ""
+
+    if (invalid_args):
+        sys.exit(1)
 
     if (url_simple):
         url_formatted = gen_long_url(url_simple) 
