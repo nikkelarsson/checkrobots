@@ -12,6 +12,9 @@ class ParseArgs:
         self.verbose: bool = False
         self.headers: bool = False
         self.url_simple: str = ""
+        self.invalid_prefixes: list = [
+                "-" * index for index, i in enumerate(range(25), 3)
+                ]
 
     def __str__(self) -> str:
         return f"Short args: {self.opts_short}, long args: {self.opts_long}"
@@ -23,13 +26,16 @@ class ParseArgs:
         for index, arg in enumerate(self.args):
             if (index == 0):
                 continue
-            if (arg.startswith("--")):
-                self.opts_long.append(arg)
-            elif (arg.startswith("-")):
-                self.opts_short.append(arg)
-            else:
-                if not (self.url_simple):
-                    self.url_simple = arg
+            for invalid_prefix in self.invalid_prefixes:
+                if (arg.startswith(invalid_prefix)):
+                    continue
+                elif (arg.startswith("--")):
+                    self.opts_long.append(arg)
+                elif (arg.startswith("-")):
+                    self.opts_short.append(arg)
+                else:
+                    if not (self.url_simple):
+                        self.url_simple = arg
 
     def parse_args_short(self) -> None:
         for arg in self.opts_short:
