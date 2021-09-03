@@ -34,26 +34,26 @@ class ParseArgs:
     def __repr__(self) -> str:
         return f"ParseArgs(args={self.args!r})"
 
-    def sort_args_invalid(self) -> None:
-        pass
+    def sort_args_invalid(self, arg: str) -> None:
+        for invalid_prefix in self.invalid_prefixes["hyphens"]:
+            if (arg.startswith(invalid_prefix)):
+                self.invalid_args.append(arg)
 
-    def sort_args_valid(self) -> None:
-        pass
+    def sort_args_valid(self, arg: str) -> None:
+        if (arg.startswith("--")):
+            self.opts_long.append(arg)
+        elif (arg.startswith("-")):
+            self.opts_short.append(arg)
+        else:
+            if not (self.url_simple):
+                self.url_simple = arg
 
     def sort_args(self) -> None:
         for index, arg in enumerate(self.args):
             if (index == 0):
                 continue
-            for invalid_prefix in self.invalid_prefixes["hyphens"]:
-                if (arg.startswith(invalid_prefix)):
-                    self.invalid_args.append(arg)
-            if (arg.startswith("--")):
-                self.opts_long.append(arg)
-            elif (arg.startswith("-")):
-                self.opts_short.append(arg)
-            else:
-                if not (self.url_simple):
-                    self.url_simple = arg
+            self.sort_args_invalid(arg)
+            self.sort_args_valid(arg)
 
     def parse_args_short(self) -> None:
         for arg in self.opts_short:
