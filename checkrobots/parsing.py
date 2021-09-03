@@ -4,6 +4,7 @@ Author: Niklas Larsson
 Date: 2.9.2021
 """
 
+
 class ParseArgs:
     def __init__(self, args: list) -> None:
         self.args: list = args
@@ -13,9 +14,19 @@ class ParseArgs:
         self.headers: bool = False
         self.url_simple: str = ""
         self.invalid_args: list = []
-        self.invalid_prefixes: list = [
-                "-" * index for index, i in enumerate(range(25), 3)
-                ]
+
+        # All the different kinds of invalid chars or
+        # char sequences etc. that we don't want
+        # to approve as prefixes.
+        #
+        # New chars can be added here, by making a own
+        # own section for those chars (like there is the
+        # section for "hyphens").
+        self.invalid_prefixes: dict = {
+                "hyphens": [
+                    "-" * index for index, i in enumerate(range(25), 3)
+                    ],
+                }
 
     def __str__(self) -> str:
         return f"Short args: {self.opts_short}, long args: {self.opts_long}"
@@ -27,7 +38,7 @@ class ParseArgs:
         for index, arg in enumerate(self.args):
             if (index == 0):
                 continue
-            for invalid_prefix in self.invalid_prefixes:
+            for invalid_prefix in self.invalid_prefixes["hyphens"]:
                 if (arg.startswith(invalid_prefix)):
                     self.invalid_args.append(arg)
             if (arg.startswith("--")):
