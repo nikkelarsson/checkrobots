@@ -30,13 +30,13 @@ class ParseArgs:
             for invalid_prefix in self.invalid_prefixes:
                 if (arg.startswith(invalid_prefix)):
                     self.invalid_args.append(arg)
-                elif (arg.startswith("--")):
-                    self.opts_long.append(arg)
-                elif (arg.startswith("-")):
-                    self.opts_short.append(arg)
-                else:
-                    if not (self.url_simple):
-                        self.url_simple = arg
+            if (arg.startswith("--")):
+                self.opts_long.append(arg)
+            elif (arg.startswith("-")):
+                self.opts_short.append(arg)
+            else:
+                if not (self.url_simple):
+                    self.url_simple = arg
 
     def parse_args_short(self) -> None:
         for arg in self.opts_short:
