@@ -86,11 +86,13 @@ def get_response(url: str, verbose: bool) -> object:
         response: object = requests.get(url)
         if (verbose):
             print("[{}]: Fetched robots.txt successfully ...".format(NAME))
-        allowed: int = 0
+        allowed_endpoints: int = 0
         for line in response.text.split("\n"):
-            allowed += 1 if (line.startswith("Allow")) else 0
-        print() if (verbose) else print(end="")
-        print("Found {} allowed endpoints ...".format(allowed))
+            if (line.startswith("Allow")):
+                allowed_endpoints += 1
+        if (verbose):
+            print("[{}]: ".format(NAME), end="")
+            print("{} allowed endpoints found ...".format(allowed_endpoints))
     except requests.ConnectionError as exception:
         sys.exit("{}: Error: Couldn't connect to {} ...".format(sys.argv[0], url))
     
