@@ -106,7 +106,7 @@ def print_all(url: str, verbose: bool, headers: bool) -> None:
     verbose...... Let the output be a little more verbose.
     headers...... Also print the headers in addition to the robots.txt.
     """
-    response: object = get_response(url, bar=False if not (verbose) else True)
+    response: object = get_response(url, verbose=False if not (verbose) else True)
     if (headers):
         headers_count: int = 1
         print_headers(response.headers)
