@@ -43,7 +43,6 @@ def print_headers(headers: dict, sort: bool=True) -> None:
     else:
         for index, pair in enumerate(headers.items()):
             print("{}: {}".format(pair[key], pair[value]))
-    print()
 
 
 def print_robots(robots: str, sort: bool=True) -> None:
@@ -94,7 +93,7 @@ def get_response(url: str, verbose: bool) -> object:
     except requests.ConnectionError as exception:
         sys.exit("{}: Error: Couldn't connect to {} ...".format(sys.argv[0], url))
     
-    return response
+    return response, allowed_endpoints
 
 
 def print_all(url: str, verbose: bool, headers: bool) -> None:
@@ -108,12 +107,16 @@ def print_all(url: str, verbose: bool, headers: bool) -> None:
     headers...... Also print the headers in addition to the robots.txt.
     """
     # Get the response.
-    response: object = get_response(url, verbose=False if not (verbose) else True)
+    response, found_endpoints = get_response(url, verbose = verbose == True)
 
     # Get and print headers (if corresponding flag is used).
     if (headers):
         headers_count: int = 1
         print_headers(response.headers)
+        if (found_endpoints):
+            print()
+        else:
+            pass
 
     # Finally print the content we're looking for.
     print_robots(response.text)
