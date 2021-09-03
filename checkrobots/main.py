@@ -57,13 +57,7 @@ def print_robots(robots: str, sort: bool=True) -> None:
     """
     scraping_not_suitable: bool = "Allow" not in robots
     if (scraping_not_suitable):
-        print(dedent("""
-        PLEASE NOTE: It seems that there were no 'allowed' 
-        endpoint fields in the robots.txt that was fetched.
-        This means, that you maybe shouldn't try to scrape
-        the website (or, at least, if the tool you're using to
-        scrape the website is going to be in public use and
-        you don't have explicit permission from the website)."""))
+        pass
     else:
         print("----- ROBOTS.TXT -----")
         endpoints: list = []
