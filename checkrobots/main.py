@@ -108,6 +108,8 @@ def print_all(url: str, verbose: bool, headers: bool) -> None:
     """
     # Get the response.
     response, found_endpoints = get_response(url, verbose = verbose == True)
+    if (verbose):
+        print()
 
     # Get and print headers (if corresponding flag is used).
     if (headers):
