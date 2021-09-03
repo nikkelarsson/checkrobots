@@ -115,8 +115,6 @@ def print_all(url: str, verbose: bool, headers: bool) -> None:
         print_headers(response.headers)
         if (found_endpoints):
             print()
-        else:
-            pass
 
     # Finally print the content we're looking for.
     print_robots(response.text)
