@@ -37,8 +37,12 @@ def print_headers(headers: dict, sort: bool=True) -> None:
     """
     key: int = 0; value: int = 1
     print("----- HEADERS -----")
-    for index, pair in enumerate(sorted(headers.items()) if (sort) else headers.items()):
-        print("{}: {}".format(pair[key], pair[value]))
+    if (sort):
+        for index, pair in enumerate(sorted(headers.items())):
+            print("{}: {}".format(pair[key], pair[value]))
+    else:
+        for index, pair in enumerate(headers.items()):
+            print("{}: {}".format(pair[key], pair[value]))
     print()
 
 
