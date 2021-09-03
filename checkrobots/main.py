@@ -70,25 +70,25 @@ def print_robots(robots: str, sort: bool=True) -> None:
             print("Endpoint [{}] --> {}".format(index, line.strip()))
 
 
-def get_response(url: str, bar: bool) -> object:
+def get_response(url: str, verbose: bool) -> object:
     """
     Fetch the response object, A.K.A the robots.txt.
 
     Parameters
     ----------
     url........ Get the robots.txt of this url.
-    bar........ Print an indicator of sorts to indicate something's happening.
+    verbose.... Print an indicator of sorts to indicate something's happening.
     """
     try:
-        if (bar):
+        if (verbose):
             print("Trying to fetch robots.txt ...")
             print("[Address]: {}".format(url))
         response: object = requests.get(url)
-        print("Fetched robots.txt successfully ...") if (bar) else print(end="")
+        print("Fetched robots.txt successfully ...") if (verbose) else print(end="")
         allowed: int = 0
         for line in response.text.split("\n"):
             allowed += 1 if (line.startswith("Allow")) else 0
-        print() if (bar) else print(end="")
+        print() if (verbose) else print(end="")
         print("Found {} allowed endpoints ...".format(allowed))
     except requests.ConnectionError as exception:
         sys.exit("{}: Error: Couldn't connect to {} ...".format(sys.argv[0], url))
