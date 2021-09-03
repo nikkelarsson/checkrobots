@@ -81,10 +81,11 @@ def get_response(url: str, verbose: bool) -> object:
     """
     try:
         if (verbose):
-            print("Trying to fetch robots.txt ...")
+            print("[{}]: Trying to fetch robots.txt ...".format(NAME))
             print("[Address]: {}".format(url))
         response: object = requests.get(url)
-        print("Fetched robots.txt successfully ...") if (verbose) else print(end="")
+        if (verbose):
+            print("[{}]: Fetched robots.txt successfully ...".format(NAME))
         allowed: int = 0
         for line in response.text.split("\n"):
             allowed += 1 if (line.startswith("Allow")) else 0
