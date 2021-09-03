@@ -34,6 +34,12 @@ class ParseArgs:
     def __repr__(self) -> str:
         return f"ParseArgs(args={self.args!r})"
 
+    def sort_args_invalid(self) -> None:
+        pass
+
+    def sort_args_valid(self) -> None:
+        pass
+
     def sort_args(self) -> None:
         for index, arg in enumerate(self.args):
             if (index == 0):
