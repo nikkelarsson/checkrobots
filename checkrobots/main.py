@@ -54,10 +54,8 @@ def print_robots(robots: str, sort: bool=True) -> None:
     robots....... The actual robots.txt content in plain/text.
     sort......... Alphabetically sort the 'rool' fields.
     """
-    scraping_not_suitable: bool = "Allow" not in robots
-    if (scraping_not_suitable):
-        pass
-    else:
+    scraping_suitable: bool = "Allow" in robots
+    if (scraping_suitable):
         print("----- ROBOTS.TXT -----")
         endpoints: list = []
         for line in robots.split("\n"):
