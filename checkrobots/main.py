@@ -117,13 +117,15 @@ def print_all(url: str, verbose: bool, headers: bool) -> None:
         if (headers):
             print()
             print_headers(response.headers)
-        print()
-        print_robots(response.text)
+        if (allowed_endpoints):
+            print()
+            print_robots(response.text)
     else:
         if (headers):
             print_headers(response.headers)
+        if (allowed_endpoints):
             print()
-        print_robots(response.text)
+            print_robots(response.text)
 
 
 def gen_long_url(short_url: str) -> str:
