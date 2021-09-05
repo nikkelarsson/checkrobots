@@ -41,20 +41,20 @@ def print_headers(headers: dict, sort: bool=True) -> None:
             print("{}: {}".format(pair[key], pair[value]))
 
 
-def print_robots(robots: str, sort: bool=True) -> None:
+def print_robots(robots_txt: str, sort: bool=True) -> None:
     """
     Print request's robots.txt's contents.
 
     Parameters
     ----------
-    robots....... The actual robots.txt content in plain/text.
+    robots_txt....... The actual robots.txt content in plain/text.
     sort......... Alphabetically sort the 'rool' fields.
     """
-    scraping_suitable: bool = "Allow" in robots
+    scraping_suitable: bool = "Allow" in robots_txt
     if (scraping_suitable):
         print("----- ROBOTS.TXT -----")
         endpoints: list = []
-        for line in robots.split("\n"):
+        for line in robots_txt.split("\n"):
             if (line.startswith("Allow")):
                 endpoints.append(line.replace("Allow: ", ""))
         for index, line in enumerate(endpoints):
