@@ -17,11 +17,7 @@ from textwrap import dedent
 # program generally will output its information with.
 LANG: str = os.getenv("LANG")
 
-# The name of this program. It is just
-# the easiest to grab the name from the cmd
-# line -args, which is always the first arg.
-NAME: str = sys.argv[0]
-
+NAME: str = "checkrobots"
 VERSION: str = "1.0"
 
 
