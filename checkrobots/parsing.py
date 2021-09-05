@@ -71,6 +71,8 @@ class ParseArgs:
                 self.quiet = True
             elif (arg == "--headers"):
                 self.headers = True
+            else:
+                self.invalid_args.append(arg)
 
     def parse_args(self) -> None:
         self.sort_args()

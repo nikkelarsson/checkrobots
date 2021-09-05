@@ -146,6 +146,21 @@ def gen_long_url(short_url: str) -> str:
     return long_url
 
 
+def print_invalid_args(invalid_args: list) -> None:
+    """
+    Print arguments that were invalid.
+
+    Parameters
+    ----------
+    invalid_args....... List of invalid args.
+    """
+    print("{}: Error: Invalid arguments provided: ".format(NAME), end="")
+    args: str = " ".join(
+            "\"{}\"".format(invalid_arg) for invalid_arg in invalid_args
+            )
+    print("{}.".format(args))
+
+
 def main(args: list=sys.argv) -> None:
     parsed: object = parsing.ParseArgs(args)
     parsed.parse_args()
@@ -157,6 +172,7 @@ def main(args: list=sys.argv) -> None:
     url_formatted: str = ""
 
     if (invalid_args):
+        print_invalid_args(invalid_args)
         sys.exit(1)
 
     if (url_simple):
