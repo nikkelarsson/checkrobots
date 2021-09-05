@@ -64,6 +64,8 @@ class ParseArgs:
                     self.quiet = True
                 elif (char == "H"):
                     self.headers = True
+                else:
+                    self.invalid_args.append(char)
 
     def parse_args_long(self) -> None:
         for arg in self.opts_long:
