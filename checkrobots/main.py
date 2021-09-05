@@ -81,17 +81,26 @@ def get_response(url: str, verbose: bool) -> object:
         response: object = requests.get(url)
         if (verbose):
             print("[{}]: Fetched robots.txt successfully ...".format(NAME))
-        allowed_endpoints: int = 0
-        for line in response.text.split("\n"):
-            if (line.startswith("Allow")):
-                allowed_endpoints += 1
-        if (verbose):
-            print("[{}]: ".format(NAME), end="")
-            print("{} allowed endpoints found ...".format(allowed_endpoints))
     except requests.ConnectionError as exception:
         sys.exit("{}: Error: Couldn't connect to {} ...".format(sys.argv[0], url))
     
-    return response, allowed_endpoints
+    return response
+
+
+def get_allowed_endpoints(response: object) -> int:
+    """
+    Check how many 'allowed' endpoints were found.
+
+    Parameters
+    ----------
+    response....... The fetched response object.
+    """
+    allowed_endpoints: int = 0
+    for line in response.text.split("\n"):
+        if (line.startswith("Allow")):
+            allowed_endpoints += 1
+
+    return allowed_endpoints
 
 
 def print_all(url: str, verbose: bool, headers: bool) -> None:
@@ -104,20 +113,21 @@ def print_all(url: str, verbose: bool, headers: bool) -> None:
     verbose...... Let the output be a little more verbose.
     headers...... Also print the headers in addition to the robots.txt.
     """
-    # Get the response.
-    response, found_endpoints = get_response(url, verbose = verbose == True)
+    response: object = get_response(url, verbose=verbose)
+    allowed_endpoints: int = get_allowed_endpoints(response)
     if (verbose):
-        print()
-
-    # Get and print headers (if corresponding flag is used).
-    if (headers):
-        headers_count: int = 1
-        print_headers(response.headers)
-        if (found_endpoints):
+        print("[{}]: ".format(NAME), end="")
+        print("{} 'allowed' endpoints found ...".format(allowed_endpoints))
+        if (headers):
             print()
-
-    # Finally print the content we're looking for.
-    print_robots(response.text)
+            print_headers(response.headers)
+        print()
+        print_robots(response.text)
+    else:
+        if (headers):
+            print_headers(response.headers)
+            print()
+        print_robots(response.text)
 
 
 def gen_long_url(short_url: str) -> str:
@@ -142,7 +152,8 @@ def main(args: list=sys.argv) -> None:
     parsed: object = parsing.ParseArgs(args)
     parsed.parse_args()
     headers: bool = parsed.is_headers()
-    verbose: bool = parsed.is_verbose()
+    quiet: bool = parsed.is_quiet()
+    verbose: bool = False if (quiet) else True
     invalid_args: list = parsed.get_invalid_args()
     url_simple: str = parsed.get_url_simple()
     url_formatted: str = ""
@@ -152,8 +163,7 @@ def main(args: list=sys.argv) -> None:
 
     if (url_simple):
         url_formatted = gen_long_url(url_simple) 
-        print_all(url_formatted, verbose=False if not (verbose) else True,
-                  headers=False if not (headers) else True,)
+        print_all(url_formatted, verbose, headers)
     else:
         sys.exit(dedent("""
                 {0} {1}, utility that can check websites robots.txt.
