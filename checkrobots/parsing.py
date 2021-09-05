@@ -10,7 +10,7 @@ class ParseArgs:
         self.args: list = args
         self.opts_short: list = []
         self.opts_long: list = []
-        self.verbose: bool = False
+        self.quiet: bool = False
         self.headers: bool = False
         self.url_simple: str = ""
         self.invalid_args: list = []
@@ -60,21 +60,31 @@ class ParseArgs:
             for index, char in enumerate(arg):
                 if (index == 0):
                     continue
-                self.verbose = char == "v"
-                self.headers = char == "H"
+                if (char == "q"):
+                    self.quiet = True
+                elif (char == "H"):
+                    self.headers = True
 
     def parse_args_long(self) -> None:
         for arg in self.opts_long:
-            self.verbose = arg == "--verbose"
-            self.headers = arg == "--headers"
+            if (arg == "--quiet"):
+                self.quiet = True
+            elif (arg == "--headers"):
+                self.headers = True
 
     def parse_args(self) -> None:
         self.sort_args()
-        self.parse_args_short()
-        self.parse_args_long()
+        if (self.opts_short):
+            self.parse_args_short()
+        if (self.opts_long):
+            self.parse_args_long()
 
-    def is_verbose(self) -> bool:
-        return self.verbose
+    def is_quiet(self) -> bool:
+        # Always override verbose/degub -flag(s) if quiet -flag is present.
+        if (self.quiet):
+            return True
+        else:
+            return False
 
     def is_headers(self) -> bool:
         return self.headers
