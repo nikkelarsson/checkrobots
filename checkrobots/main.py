@@ -124,8 +124,9 @@ def print_all(url: str, verbose: bool, headers: bool) -> None:
     else:
         if (headers):
             print_headers(response.headers)
+            if (allowed_endpoints):
+                print()
         if (allowed_endpoints):
-            print()
             print_robots(response.text)
 
 
