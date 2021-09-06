@@ -129,22 +129,22 @@ def print_all(url: str, verbose: bool, headers: bool) -> None:
             print_robots(response.text)
 
 
-def gen_long_url(short_url: str) -> str:
+def gen_url(website: str) -> str:
     """
-    Generate a valid, 'long' url from a 'shorter' url.
+    Generate a url by looking at the website's name.
 
     Parameters
     ----------
-    short_url...... 'Short' url, for example "google".
+    website...... Website's name (google, youtube etc).
     """
-    if (short_url == "youtube"):
-        long_url = "https://www.youtube.com/robots.txt"
-    elif (short_url == "google"):
-        long_url = "https://www.google.fi/robots.txt"
+    if (website == "youtube"):
+        url = "https://www.youtube.com/robots.txt"
+    elif (website == "google"):
+        url = "https://www.google.fi/robots.txt"
     else:
-        sys.exit("{}: Error: '{}' is not recognized ...".format(NAME, short_url))
+        sys.exit("{}: Error: '{}' is not recognized ...".format(NAME, website))
 
-    return long_url
+    return url
 
 
 def print_invalid_args(invalid_args: list) -> None:
@@ -169,16 +169,16 @@ def main(args: list=sys.argv) -> None:
     quiet: bool = parsed.is_quiet()
     verbose: bool = False if (quiet) else True
     invalid_args: list = parsed.get_invalid_args()
-    url_simple: str = parsed.get_url_simple()
-    url_formatted: str = ""
+    website_name: str = parsed.get_url_simple()
+    url: str = ""
 
     if (invalid_args):
         print_invalid_args(invalid_args)
         sys.exit(1)
 
-    if (url_simple):
-        url_formatted = gen_long_url(url_simple) 
-        print_all(url_formatted, verbose, headers)
+    if (website_name):
+        url = gen_url(website_name) 
+        print_all(url, verbose, headers)
     else:
         sys.exit(dedent("""
                 {0} {1}, utility that can check websites robots.txt.
