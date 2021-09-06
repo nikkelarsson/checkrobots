@@ -22,7 +22,7 @@ NAME: str = "checkrobots"
 VERSION: str = "1.0"
 
 
-def print_headers(headers: dict, sort: bool=True) -> None:
+def print_headers(headers: dict, sort: bool) -> None:
     """
     Print the request's headers for xtra info.
     
@@ -42,7 +42,7 @@ def print_headers(headers: dict, sort: bool=True) -> None:
             print("{}: {}".format(pair[key], pair[value]))
 
 
-def print_robots(robots_txt: str, sort: bool=True) -> None:
+def print_robots(robots_txt: str, sort: bool) -> None:
     """
     Print request's robots.txt's contents.
 
@@ -104,7 +104,7 @@ def get_allowed_endpoints(response: object) -> int:
     return allowed_endpoints
 
 
-def print_all(url: str, verbose: bool, headers: bool) -> None:
+def print_all(url: str, verbose: bool, headers: bool, sort: bool) -> None:
     """
     Print out all: the actual robots.txt, and additionally headers.
     
@@ -121,17 +121,17 @@ def print_all(url: str, verbose: bool, headers: bool) -> None:
         print("{} 'allowed' endpoints found ...".format(allowed_endpoints))
         if (headers):
             print()
-            print_headers(response.headers)
+            print_headers(response.headers, sort)
         if (allowed_endpoints):
             print()
-            print_robots(response.text)
+            print_robots(response.text, sort)
     else:
         if (headers):
-            print_headers(response.headers)
+            print_headers(response.headers, sort)
             if (allowed_endpoints):
                 print()
         if (allowed_endpoints):
-            print_robots(response.text)
+            print_robots(response.text, sort)
 
 
 def print_invalid_args(invalid_args: list) -> None:
@@ -155,6 +155,7 @@ def main(args: list=sys.argv) -> None:
     headers: bool = parsed.is_headers()
     quiet: bool = parsed.is_quiet()
     verbose: bool = False if (quiet) else True
+    sort: bool = parsed.is_sort()
     invalid_args: list = parsed.get_invalid_args()
     website_name: str = parsed.get_website_name()
     url: str = ""
@@ -166,7 +167,7 @@ def main(args: list=sys.argv) -> None:
     if (website_name):
         url = urls.gen_url(website_name) 
         if (url):
-            print_all(url, verbose, headers)
+            print_all(url, verbose, headers, sort)
         else:
             print("{}: Error: ".format(NAME), end="")
             print("Couldn't find a matching website for ", end="")

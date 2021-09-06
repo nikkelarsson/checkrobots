@@ -12,6 +12,7 @@ class ParseArgs:
         self.opts_long: list = []
         self.quiet: bool = False
         self.headers: bool = False
+        self.sort: bool = False
         self.website: str = ""
         self.invalid_args: list = []
 
@@ -64,6 +65,8 @@ class ParseArgs:
                     self.quiet = True
                 elif (char == "H"):
                     self.headers = True
+                elif (char == "s"):
+                    self.sort = True
                 else:
                     self.invalid_args.append(char)
 
@@ -73,6 +76,8 @@ class ParseArgs:
                 self.quiet = True
             elif (arg == "--headers"):
                 self.headers = True
+            elif (arg == "--sort"):
+                self.sort = True
             else:
                 self.invalid_args.append(arg)
 
@@ -92,6 +97,9 @@ class ParseArgs:
 
     def is_headers(self) -> bool:
         return self.headers
+
+    def is_sort(self) -> bool:
+        return self.sort
 
     def get_invalid_args(self) -> list:
         return self.invalid_args
