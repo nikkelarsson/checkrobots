@@ -137,6 +137,7 @@ def gen_url(website: str) -> str:
     ----------
     website...... Website's name (google, youtube etc).
     """
+    url: str = ""
     if (website == "youtube"):
         url = "https://www.youtube.com/robots.txt"
     elif (website == "google"):
