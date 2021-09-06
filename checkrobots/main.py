@@ -129,25 +129,6 @@ def print_all(url: str, verbose: bool, headers: bool) -> None:
             print_robots(response.text)
 
 
-def gen_url(website: str) -> str:
-    """
-    Generate a url by looking at the website's name.
-
-    Parameters
-    ----------
-    website...... Website's name (google, youtube etc).
-    """
-    url: str = ""
-    if (website == "youtube"):
-        url = "https://www.youtube.com/robots.txt"
-    elif (website == "google"):
-        url = "https://www.google.fi/robots.txt"
-    else:
-        sys.exit("{}: Error: '{}' is not recognized ...".format(NAME, website))
-
-    return url
-
-
 def print_invalid_args(invalid_args: list) -> None:
     """
     Print arguments that were invalid.
@@ -178,8 +159,14 @@ def main(args: list=sys.argv) -> None:
         sys.exit(1)
 
     if (website_name):
-        url = gen_url(website_name) 
-        print_all(url, verbose, headers)
+        url = urls.gen_url(website_name) 
+        if (url):
+            print_all(url, verbose, headers)
+        else:
+            print("{}: Error: ".format(NAME), end="")
+            print("Couldn't find a matching website for ", end="")
+            print("\"{}\".".format(website_name))
+            sys.exit(1)
     else:
         sys.exit(dedent("""
                 {0} {1}, utility that can check websites robots.txt.
