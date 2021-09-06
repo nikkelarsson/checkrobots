@@ -12,7 +12,7 @@ class ParseArgs:
         self.opts_long: list = []
         self.quiet: bool = False
         self.headers: bool = False
-        self.url_simple: str = ""
+        self.website: str = ""
         self.invalid_args: list = []
 
         # All the different kinds of invalid chars or
@@ -45,8 +45,8 @@ class ParseArgs:
         elif (arg.startswith("-")):
             self.opts_short.append(arg)
         else:
-            if not (self.url_simple):
-                self.url_simple = arg
+            if not (self.website):
+                self.website = arg
 
     def sort_args(self) -> None:
         for index, arg in enumerate(self.args):
@@ -96,5 +96,5 @@ class ParseArgs:
     def get_invalid_args(self) -> list:
         return self.invalid_args
 
-    def get_url_simple(self) -> str:
-        return self.url_simple
+    def get_website_name(self) -> str:
+        return self.website

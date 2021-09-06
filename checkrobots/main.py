@@ -58,8 +58,12 @@ def print_robots(robots_txt: str, sort: bool=True) -> None:
         for line in robots_txt.split("\n"):
             if (line.startswith("Allow")):
                 endpoints.append(line.replace("Allow: ", ""))
-        for index, line in enumerate(endpoints):
-            print("Endpoint [{}] --> {}".format(index, line.strip()))
+        if (sort):
+            for index, line in enumerate(sorted(endpoints)):
+                print("Endpoint [{}] --> {}".format(index, line.strip()))
+        else:
+            for index, line in enumerate(endpoints):
+                print("Endpoint [{}] --> {}".format(index, line.strip()))
 
 
 def get_response(url: str, verbose: bool) -> object:
@@ -152,7 +156,7 @@ def main(args: list=sys.argv) -> None:
     quiet: bool = parsed.is_quiet()
     verbose: bool = False if (quiet) else True
     invalid_args: list = parsed.get_invalid_args()
-    website_name: str = parsed.get_url_simple()
+    website_name: str = parsed.get_website_name()
     url: str = ""
 
     if (invalid_args):
