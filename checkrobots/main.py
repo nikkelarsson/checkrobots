@@ -5,8 +5,8 @@ Date: 29.8.2021
 """
 
 #import colourcodes
-import parsing
-import urls
+from . import parsing
+from . import urls
 
 import requests
 import sys
