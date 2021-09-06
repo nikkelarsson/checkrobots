@@ -4,3 +4,7 @@
 
 # NAME
 checkrobots – Get and observe websites' robots.txt.
+
+# SYNOPSIS
+**checkrobots** [*–H* | *––headers*] [*–q* | *––quiet*]\
+                [*–s* | *––sorted*]
