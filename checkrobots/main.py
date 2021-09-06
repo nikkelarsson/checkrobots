@@ -6,6 +6,7 @@ Date: 29.8.2021
 
 import colourcodes
 import parsing
+import urls
 
 import requests
 import sys
