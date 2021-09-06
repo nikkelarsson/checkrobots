@@ -8,7 +8,8 @@ Date: 5.9.2021
 # Website names with their corresponding urls to the robots.txt.
 WEBSITES: dict = {
         "youtube": "https://www.youtube.com/robots.txt",
-        "google": "https://www.google.fi/robots.txt"
+        "google": "https://www.google.fi/robots.txt",
+        "chess": "https://www.chess.com/robots.txt"
         }
 
 def gen_url(website: str) -> str:
