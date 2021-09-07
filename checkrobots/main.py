@@ -160,6 +160,7 @@ def main(args: list=sys.argv) -> None:
     invalid_args: list = parsed.get_invalid_args()
     website_name: str = parsed.get_website_name()
     url: str = ""
+    response: object = None
 
     if (invalid_args):
         print_invalid_args(invalid_args)
@@ -174,12 +175,16 @@ def main(args: list=sys.argv) -> None:
                 """.format(NAME, VERSION)).strip())
 
     if (url):
-        response: object = get_response(url, verbose)
+        response = get_response(url, verbose)
     else:
         print("{}: Error: ".format(NAME), end="")
         print("Couldn't find a matching website for ", end="")
         print("\"{}\".".format(website_name))
         sys.exit(1)
+
+    if (response):
+        endpoints_allowed: int = endpoints.count_allowed(response)
+        endpoints_disallowed: int = endpoints.count_allowed(response)
 
     if (verbose):
         if (headers):
