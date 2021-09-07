@@ -167,18 +167,20 @@ def main(args: list=sys.argv) -> None:
 
     if (website_name):
         url = urls.gen_url(website_name) 
-        if (url):
-            print_all(url, verbose, headers, sort)
-        else:
-            print("{}: Error: ".format(NAME), end="")
-            print("Couldn't find a matching website for ", end="")
-            print("\"{}\".".format(website_name))
-            sys.exit(1)
     else:
         sys.exit(dedent("""
                 {0} {1}, utility that can check websites robots.txt.
                 Usage: {0} [options] <website_name>
                 """.format(NAME, VERSION)).strip())
+
+    if (url):
+        response: object = get_response(url, verbose)
+        print_all(url, verbose, headers, sort)
+    else:
+        print("{}: Error: ".format(NAME), end="")
+        print("Couldn't find a matching website for ", end="")
+        print("\"{}\".".format(website_name))
+        sys.exit(1)
 
 
 if (__name__ == "__main__"):
