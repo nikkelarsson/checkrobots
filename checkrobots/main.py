@@ -7,6 +7,7 @@ Date: 29.8.2021
 #import colourcodes
 from . import parsing
 from . import urls
+from . import robots
 
 import requests
 import sys
@@ -42,16 +43,6 @@ def print_headers(headers: dict, sort: bool) -> None:
             print("{}: {}".format(pair[key], pair[value]))
 
 
-def print_robots_allowed() -> None:
-    """Print fields from the robots.txt that begin with 'Allow'."""
-    pass
-
-
-def print_robots_disallowed() -> None:
-    """Print fields from the robots.txt that begin with 'Disallow'."""
-    pass
-
-
 def print_robots(robots_txt: str, sort: bool) -> None:
     """
     Print request's robots.txt's contents.
@@ -59,7 +50,7 @@ def print_robots(robots_txt: str, sort: bool) -> None:
     Parameters
     ----------
     robots_txt....... The actual robots.txt content in plain/text.
-    sort......... Alphabetically sort the 'rool' fields.
+    sort............. Alphabetically sort the 'rool' fields.
     """
     scraping_suitable: bool = "Allow" in robots_txt
     if (scraping_suitable):
