@@ -7,12 +7,30 @@ Date: September 7, 2021
 
 def print_allowed(robots_txt: str, sort: bool) -> None:
     """Print fields from the robots.txt that begin with 'Allow'."""
-    pass
+    endpoints: list = []
+    for line in robots_txt.split("\n"):
+        if (line.startswith("Allow")):
+            endpoints.append(line.replace("Allow: ", ""))
+    if (sort):
+        for index, line in enumerate(sorted(endpoints)):
+            print("Endpoint [{}] --> {}".format(index, line.strip()))
+    else:
+        for index, line in enumerate(endpoints):
+            print("Endpoint [{}] --> {}".format(index, line.strip()))
 
 
 def print_disallowed(robots_txt: str, sort: bool) -> None:
     """Print fields from the robots.txt that begin with 'Disallow'."""
-    pass
+    endpoints: list = []
+    for line in robots_txt.split("\n"):
+        if (line.startswith("Disallow")):
+            endpoints.append(line.replace("Disallow: ", ""))
+    if (sort):
+        for index, line in enumerate(sorted(endpoints)):
+            print("Endpoint [{}] --> {}".format(index, line.strip()))
+    else:
+        for index, line in enumerate(endpoints):
+            print("Endpoint [{}] --> {}".format(index, line.strip()))
 
 
 def print_all() -> None:
