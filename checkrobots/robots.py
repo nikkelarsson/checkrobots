@@ -6,7 +6,14 @@ Date: September 7, 2021
 
 
 def print_allowed(robots_txt: str, sort: bool) -> None:
-    """Print fields from the robots.txt that begin with 'Allow'."""
+    """
+    Print fields from the robots.txt that begin with 'Allow'.
+
+    Parameters
+    ----------
+    robots_txt......... Robots.txt in plain/text -format.
+    sort............... Alphabetically sort the endpoints.
+    """
     endpoints: list = []
     for line in robots_txt.split("\n"):
         if (line.startswith("Allow")):
@@ -20,7 +27,14 @@ def print_allowed(robots_txt: str, sort: bool) -> None:
 
 
 def print_disallowed(robots_txt: str, sort: bool) -> None:
-    """Print fields from the robots.txt that begin with 'Disallow'."""
+    """
+    Print fields from the robots.txt that begin with 'Disallow'.
+
+    Parameters
+    ----------
+    robots_txt......... Robots.txt in plain/text -format.
+    sort............... Alphabetically sort the endpoints.
+    """
     endpoints: list = []
     for line in robots_txt.split("\n"):
         if (line.startswith("Disallow")):
