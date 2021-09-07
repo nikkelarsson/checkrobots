@@ -175,12 +175,26 @@ def main(args: list=sys.argv) -> None:
 
     if (url):
         response: object = get_response(url, verbose)
-        print_all(url, verbose, headers, sort)
     else:
         print("{}: Error: ".format(NAME), end="")
         print("Couldn't find a matching website for ", end="")
         print("\"{}\".".format(website_name))
         sys.exit(1)
+
+    if (verbose):
+        if (headers):
+            print()
+            print_headers(response.headers, sort)
+        if (allowed_endpoints):
+            print()
+            print_robots(response.text, sort)
+    else:
+        if (headers):
+            print_headers(response.headers, sort)
+            if (allowed_endpoints):
+                print()
+        if (allowed_endpoints):
+            print_robots(response.text, sort)
 
 
 if (__name__ == "__main__"):
