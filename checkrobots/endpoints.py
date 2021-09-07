@@ -14,6 +14,8 @@ def count_allowed(response: object) -> int:
         if (line.startswith("Allow")):
             endpoints += 1
 
+    return endpoints
+
 
 def count_disallowed(response: object) -> int:
     """
@@ -23,3 +25,5 @@ def count_disallowed(response: object) -> int:
     for line in response.text.split("\n"):
         if (line.startswith("Disallow")):
             endpoints += 1
+
+    return endpoints
