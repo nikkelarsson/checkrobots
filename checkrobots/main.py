@@ -8,6 +8,7 @@ Date: 29.8.2021
 from . import parsing
 from . import urls
 from . import robots
+from . import endpoints
 
 import requests
 import sys
