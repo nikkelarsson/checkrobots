@@ -9,6 +9,7 @@ from . import parsing
 from . import urls
 from . import robots
 from . import endpoints
+from . import headers
 
 import requests
 import sys
