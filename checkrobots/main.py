@@ -91,22 +91,6 @@ def get_response(url: str, verbose: bool) -> object:
     return response
 
 
-def get_allowed_endpoints(response: object) -> int:
-    """
-    Check how many 'allowed' endpoints were found.
-
-    Parameters
-    ----------
-    response....... The fetched response object.
-    """
-    allowed_endpoints: int = 0
-    for line in response.text.split("\n"):
-        if (line.startswith("Allow")):
-            allowed_endpoints += 1
-
-    return allowed_endpoints
-
-
 def print_all(url: str, verbose: bool, headers: bool, sort: bool) -> None:
     """
     Print out all: the actual robots.txt, and additionally headers.
@@ -164,6 +148,12 @@ def main(args: list=sys.argv) -> None:
     url: str = ""
     response: object = None
 
+    endpoints: dict = {
+            "all": None,
+            "disallowed": None,
+            "allowed": None
+            }
+
     if (invalid_args):
         print_invalid_args(invalid_args)
         sys.exit(1)
@@ -197,6 +187,13 @@ def main(args: list=sys.argv) -> None:
             headers.print_()
         else:
             headers.print_()
+
+    if (endpoints["allowed"]):
+        pass
+    elif (endpoints["disallowed"]):
+        pass
+    elif (endpoints["all"]):
+        pass
 
     if (verbose):
         if (headers):
