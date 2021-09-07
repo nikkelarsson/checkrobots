@@ -186,6 +186,16 @@ def main(args: list=sys.argv) -> None:
     if (response):
         endpoints_allowed: int = endpoints.count_allowed(response)
         endpoints_disallowed: int = endpoints.count_allowed(response)
+        if (verbose):
+            print("[{}]: ".format(NAME), end="")
+            print("{} 'allowed' endpoints found ...".format(allowed_endpoints))
+
+    if (headers):
+        if (verbose):
+            print()
+            headers.print_()
+        else:
+            headers.print_()
 
     if (verbose):
         if (headers):
