@@ -15,6 +15,11 @@ class ParseArgs:
         self.sort: bool = False
         self.website: str = ""
         self.invalid_args: list = []
+        self.endpoints: dict = {
+                "all": False,
+                "disallowed": False,
+                "allowed": False
+                }
 
         # All the different kinds of invalid chars or
         # char sequences etc. that we don't want
