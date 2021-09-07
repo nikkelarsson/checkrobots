@@ -9,11 +9,17 @@ def count_allowed(response: object) -> int:
     """
     Get the amount of fields that start with 'Allow' from the response.
     """
-    pass
+    endpoints: int = 0
+    for line in response.text.split("\n"):
+        if (line.startswith("Allow")):
+            endpoints += 1
 
 
 def count_disallowed(response: object) -> int:
     """
     Get the amount of fields that start with 'Disallow' from the response.
     """
-    pass
+    endpoints: int = 0
+    for line in response.text.split("\n"):
+        if (line.startswith("Disallow")):
+            endpoints += 1
