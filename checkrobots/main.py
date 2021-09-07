@@ -42,6 +42,16 @@ def print_headers(headers: dict, sort: bool) -> None:
             print("{}: {}".format(pair[key], pair[value]))
 
 
+def print_robots_allowed() -> None:
+    """Print fields from the robots.txt that begin with 'Allow'."""
+    pass
+
+
+def print_robots_disallowed() -> None:
+    """Print fields from the robots.txt that begin with 'Disallow'."""
+    pass
+
+
 def print_robots(robots_txt: str, sort: bool) -> None:
     """
     Print request's robots.txt's contents.
