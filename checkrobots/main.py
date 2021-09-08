@@ -85,7 +85,7 @@ def print_invalid_args(invalid_args: list) -> None:
 def main(args: list=sys.argv) -> None:
     parsed: object = parsing.ParseArgs(args)
     parsed.parse_args()
-    headers: bool = parsed.is_headers()
+    headers_exist: bool = parsed.is_headers()
     quiet: bool = parsed.is_quiet()
     verbose: bool = False if (quiet) else True
     sort: bool = parsed.is_sort()
@@ -129,12 +129,11 @@ def main(args: list=sys.argv) -> None:
             print("[{}]: ".format(NAME), end="")
             print("{} 'disallowed' endpoints found ...".format(endpoints_disallowed))
 
-    if (headers):
+    if (headers_exist):
         if (verbose):
             print()
-            headers.print_()
-        else:
-            headers.print_()
+        print("----- HEADERS -----")
+        headers.print_headers(response.headers, sort)
 
     if (endpoint_status["allowed_only"]):
         if (endpoints_allowed):
@@ -157,9 +156,11 @@ def main(args: list=sys.argv) -> None:
             if (verbose):
                 print()
             print("----- ROBOTS.TXT -----")
+        if (endpoints_allowed):
             print()
             print("Allow fields:")
             robots.print_allowed(response.text, sort)
+        if (endpoints_disallowed):
             print()
             print("Disallow fields:")
             robots.print_disallowed(response.text, sort)
