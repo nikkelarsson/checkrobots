@@ -5,7 +5,7 @@
   endpoint fields only.
 - [x] Implement a flag that would enable fetching both 'allowed' and 'disallowed'
   endpoint fields.
-- Implement "-h" and "--help" flags.
+- [x] Implement "-h" and "--help" flags.
 - [x] In module "endpoints.py":
   - Create functions "count_allowed" and "count_disallowed".
 - In module "headers.py":
