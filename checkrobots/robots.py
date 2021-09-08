@@ -45,8 +45,3 @@ def print_disallowed(robots_txt: str, sort: bool) -> None:
     else:
         for index, line in enumerate(endpoints):
             print("Endpoint [{}] --> {}".format(index, line.strip()))
-
-
-def print_all() -> None:
-    """Print all the fields from the robots.txt, both 'Allow' and 'Disallow'."""
-    pass

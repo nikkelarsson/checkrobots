@@ -148,10 +148,10 @@ def main(args: list=sys.argv) -> None:
     url: str = ""
     response: object = None
 
-    endpoints: dict = {
-            "all": None,
-            "disallowed": None,
-            "allowed": None
+    endpoint_status: dict = {
+            "all": parsed.is_all(),
+            "disallowed_only": parsed.is_disallowed(),
+            "allowed_only": parsed.is_allowed()  # True/on by default.
             }
 
     if (invalid_args):
@@ -179,7 +179,9 @@ def main(args: list=sys.argv) -> None:
         endpoints_disallowed: int = endpoints.count_allowed(response)
         if (verbose):
             print("[{}]: ".format(NAME), end="")
-            print("{} 'allowed' endpoints found ...".format(allowed_endpoints))
+            print("{} 'allowed' endpoints found ...".format(endpoints_allowed))
+            print("[{}]: ".format(NAME), end="")
+            print("{} 'disallowed' endpoints found ...".format(endpoints_disallowed))
 
     if (headers):
         if (verbose):
@@ -188,27 +190,33 @@ def main(args: list=sys.argv) -> None:
         else:
             headers.print_()
 
-    if (endpoints["allowed"]):
-        pass
-    elif (endpoints["disallowed"]):
-        pass
-    elif (endpoints["all"]):
-        pass
-
-    if (verbose):
-        if (headers):
-            print()
-            print_headers(response.headers, sort)
-        if (allowed_endpoints):
-            print()
-            print_robots(response.text, sort)
-    else:
-        if (headers):
-            print_headers(response.headers, sort)
-            if (allowed_endpoints):
+    if (endpoint_status["allowed_only"]):
+        if (endpoints_allowed):
+            if (verbose):
                 print()
-        if (allowed_endpoints):
-            print_robots(response.text, sort)
+            print("----- ROBOTS.TXT -----")
+            print()
+            print("Allow fields:")
+            robots.print_allowed(response.text, sort)
+    elif (endpoint_status["disallowed_only"]):
+        if (endpoints_disallowed):
+            if (verbose):
+                print()
+            print("----- ROBOTS.TXT -----")
+            print()
+            print("Disallow fields:")
+            robots.print_disallowed(response.text, sort)
+    elif (endpoint_status["all"]):
+        if (endpoints_allowed) or (endpoints_disallowed):
+            if (verbose):
+                print()
+            print("----- ROBOTS.TXT -----")
+            print()
+            print("Allow fields:")
+            robots.print_allowed(response.text, sort)
+            print()
+            print("Disallow fields:")
+            robots.print_disallowed(response.text, sort)
 
 
 if (__name__ == "__main__"):

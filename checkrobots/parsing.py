@@ -18,7 +18,7 @@ class ParseArgs:
         self.endpoints: dict = {
                 "all": False,
                 "disallowed": False,
-                "allowed": False
+                "allowed": True
                 }
 
         # All the different kinds of invalid chars or
@@ -72,6 +72,14 @@ class ParseArgs:
                     self.headers = True
                 elif (char == "s"):
                     self.sort = True
+                elif (char == "d"):
+                    if not (self.endpoints["all"]):
+                        self.endpoints["disallowed"] = True
+                        self.endpoints["allowed"] = False
+                elif (char == "a"):
+                    self.endpoints["all"] = True
+                    self.endpoints["allowed"] = False
+                    self.endpoints["disallowed"] = False
                 else:
                     self.invalid_args.append(char)
 
@@ -83,6 +91,14 @@ class ParseArgs:
                 self.headers = True
             elif (arg == "--sort"):
                 self.sort = True
+            elif (arg == "--disallowed"):
+                if not (self.endpoints["all"]):
+                    self.endpoints["disallowed"] = True
+                    self.endpoints["allowed"] = False
+            elif (arg == "--all"):
+                self.endpoints["all"] = True
+                self.endpoints["allowed"] = False
+                self.endpoints["disallowed"] = False
             else:
                 self.invalid_args.append(arg)
 
@@ -105,6 +121,15 @@ class ParseArgs:
 
     def is_sort(self) -> bool:
         return self.sort
+
+    def is_allowed(self) -> bool:
+        return self.endpoints["allowed"]
+
+    def is_disallowed(self) -> bool:
+        return self.endpoints["disallowed"]
+
+    def is_all(self) -> bool:
+        return self.endpoints["all"]
 
     def get_invalid_args(self) -> list:
         return self.invalid_args
