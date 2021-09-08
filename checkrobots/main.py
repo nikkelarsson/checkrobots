@@ -176,7 +176,7 @@ def main(args: list=sys.argv) -> None:
 
     if (response):
         endpoints_allowed: int = endpoints.count_allowed(response)
-        endpoints_disallowed: int = endpoints.count_allowed(response)
+        endpoints_disallowed: int = endpoints.count_disallowed(response)
         if (verbose):
             print("[{}]: ".format(NAME), end="")
             print("{} 'allowed' endpoints found ...".format(endpoints_allowed))
