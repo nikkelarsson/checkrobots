@@ -25,26 +25,6 @@ NAME: str = "checkrobots"
 VERSION: str = "1.0"
 
 
-def print_headers(headers: dict, sort: bool) -> None:
-    """
-    Print the request's headers for xtra info.
-    
-    Parameters
-    ----------
-    headers...... The request's headers in the format of dictionary.
-    limit........ The limit how many header fields to print.
-    sort......... Alphabetically sort the header fields.
-    """
-    key: int = 0; value: int = 1
-    print("----- HEADERS -----")
-    if (sort):
-        for index, pair in enumerate(sorted(headers.items())):
-            print("{}: {}".format(pair[key], pair[value]))
-    else:
-        for index, pair in enumerate(headers.items()):
-            print("{}: {}".format(pair[key], pair[value]))
-
-
 def get_response(url: str, verbose: bool) -> object:
     """
     Fetch the response object, A.K.A the robots.txt.
