@@ -4,7 +4,6 @@ Author: Niklas Larsson
 Date: 29.8.2021
 """
 
-#import colourcodes
 from . import parsing
 from . import urls
 from . import robots
