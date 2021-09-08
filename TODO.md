@@ -10,3 +10,5 @@
   - Create functions "count_allowed" and "count_disallowed".
 - In module "headers.py":
   - Create a function "print_".
+- [ ] Implement flag/flags that would enable fetching the contents of the
+  robots.txt as is, in other words, as "raw".
