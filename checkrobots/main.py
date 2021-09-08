@@ -4,7 +4,6 @@ Author: Niklas Larsson
 Date: 29.8.2021
 """
 
-#import colourcodes
 from . import parsing
 from . import urls
 from . import robots
@@ -73,6 +72,7 @@ def main(args: list=sys.argv) -> None:
     website_name: str = parsed.get_website_name()
     url: str = ""
     response: object = None
+    help_requested: bool = parsed.is_help()
 
     endpoint_status: dict = {
             "all": parsed.is_all(),
@@ -83,6 +83,26 @@ def main(args: list=sys.argv) -> None:
     if (invalid_args):
         print_invalid_args(invalid_args)
         sys.exit(1)
+
+    if (help_requested):
+        sys.exit(dedent("""
+                {0} {1}, utility that can check websites robots.txt.
+                Usage: {0} [options] <website_name>
+
+                Filtering options:
+                -d,  --disallowed...... Limit results to disallowed only.
+                -a,  --all............. Print all results.
+
+                Output control:
+                -q,  --quiet........... Make the output (except the results) quiet.
+                -s,  --sort............ Alphabetically sort the result (and header) fields.
+
+                Headers:
+                -H,  --headers......... Print headers.
+
+                Help:
+                -h,  --help............ Print this message.
+                """.format(NAME, VERSION)).strip())
 
     if (website_name):
         url = urls.gen_url(website_name) 

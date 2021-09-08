@@ -15,6 +15,7 @@ class ParseArgs:
         self.sort: bool = False
         self.website: str = ""
         self.invalid_args: list = []
+        self.help_requested: bool = False
         self.endpoints: dict = {
                 "all": False,
                 "disallowed": False,
@@ -80,6 +81,8 @@ class ParseArgs:
                     self.endpoints["all"] = True
                     self.endpoints["allowed"] = False
                     self.endpoints["disallowed"] = False
+                elif (char == "h"):
+                    self.help_requested = True
                 else:
                     self.invalid_args.append(char)
 
@@ -99,6 +102,8 @@ class ParseArgs:
                 self.endpoints["all"] = True
                 self.endpoints["allowed"] = False
                 self.endpoints["disallowed"] = False
+            elif (arg == "--help"):
+                self.help_requested = True
             else:
                 self.invalid_args.append(arg)
 
@@ -130,6 +135,9 @@ class ParseArgs:
 
     def is_all(self) -> bool:
         return self.endpoints["all"]
+
+    def is_help(self) -> bool:
+        return self.help_requested
 
     def get_invalid_args(self) -> list:
         return self.invalid_args
