@@ -15,9 +15,11 @@ def print_allowed(robots_txt: str, sort: bool) -> None:
     sort............... Alphabetically sort the endpoints.
     """
     endpoints: list = []
+    min_valid_len: int = len("Allow:")
     for line in robots_txt.split("\n"):
         if (line.startswith("Allow")):
-            endpoints.append(line.replace("Allow: ", ""))
+            if (len(line) > min_valid_len):
+                endpoints.append(line.replace("Allow: ", ""))
     if (sort):
         for index, line in enumerate(sorted(endpoints), 1):
             print("Endpoint [{}] --> {}".format(index, line.strip()))
@@ -36,9 +38,11 @@ def print_disallowed(robots_txt: str, sort: bool) -> None:
     sort............... Alphabetically sort the endpoints.
     """
     endpoints: list = []
+    min_valid_len: int = len("Disallow:")
     for line in robots_txt.split("\n"):
         if (line.startswith("Disallow")):
-            endpoints.append(line.replace("Disallow: ", ""))
+            if (len(line) > min_valid_len):
+                endpoints.append(line.replace("Disallow: ", ""))
     if (sort):
         for index, line in enumerate(sorted(endpoints), 1):
             print("Endpoint [{}] --> {}".format(index, line.strip()))
