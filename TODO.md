@@ -12,3 +12,7 @@
   - Create a function "print_".
 - [ ] Implement flag/flags that would enable fetching the contents of the
   robots.txt as is, in other words, as "raw".
+- [ ] Create new branch, and in that branch do the following:
+  - Move the "print_invalid_args" function to the "parsing.py" module.
+- [ ] Delete the "print_headers" function from "main.py", as it is no longer
+  needed there.
