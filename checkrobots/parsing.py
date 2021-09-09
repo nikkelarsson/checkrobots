@@ -14,6 +14,7 @@ class ParseArgs:
         self.headers: bool = False
         self.sort: bool = False
         self.website: str = ""
+        self.raw: bool = False
         self.invalid_args: list = []
         self.help_requested: bool = False
         self.version_requested: bool = False
@@ -89,6 +90,8 @@ class ParseArgs:
                 elif (char == "V"):
                     if not (self.help_requested):
                         self.version_requested = True
+                elif (char == "r"):
+                    self.raw = True
                 else:
                     self.invalid_args.append(char)
 
@@ -115,6 +118,8 @@ class ParseArgs:
             elif (arg == "--version"):
                 if not (self.help_requested):
                     self.version_requested = True
+            elif (arg == "--raw"):
+                self.raw = True
             else:
                 self.invalid_args.append(arg)
 
@@ -152,6 +157,9 @@ class ParseArgs:
 
     def is_version(self) -> bool:
         return self.version_requested
+
+    def is_raw(self) -> bool:
+        return self.raw
 
     def get_invalid_args(self) -> list:
         return self.invalid_args

@@ -74,6 +74,7 @@ def main(args: list=sys.argv) -> None:
     response: object = None
     help_requested: bool = parsed.is_help()
     version_requested: bool = parsed.is_version()
+    raw_output: bool = parsed.is_raw()
 
     endpoint_status: dict = {
             "all": parsed.is_all(),
@@ -138,6 +139,12 @@ def main(args: list=sys.argv) -> None:
             print()
         print("----- HEADERS -----")
         headers.print_headers(response.headers, sort)
+
+    if (raw_output):
+        if (verbose):
+            print()
+        robots.print_raw(response.text)
+        sys.exit(0)
 
     if (endpoint_status["allowed_only"]):
         if (endpoints_allowed):

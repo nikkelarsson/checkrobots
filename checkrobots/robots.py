@@ -49,3 +49,15 @@ def print_disallowed(robots_txt: str, sort: bool) -> None:
     else:
         for index, line in enumerate(endpoints, 1):
             print("Endpoint [{}] --> {}".format(index, line.strip()))
+
+
+def print_raw(robots_txt: str) -> None:
+    """
+    Print site's robots.txt "as is".
+
+    Parameters
+    ----------
+    robots_txt...... Contents of the robots.txt in plain/text format.
+    """
+    for line in robots_txt.split("\n"):
+        print(line)
