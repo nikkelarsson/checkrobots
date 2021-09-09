@@ -20,3 +20,6 @@
   the version flags.
 - [ ] Make the output when filtering endpoints in such way, that the "Endpoint
   [endpoint_number]" field would be left as only with the index of the endpoint.
+- [ ] Implement functionality that would apply to flags "-s" and "--sort", that
+  would enable user to tweak the way the sorting would be done (alphabetical
+  -sort, sort by length etc).
