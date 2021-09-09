@@ -73,6 +73,7 @@ def main(args: list=sys.argv) -> None:
     url: str = ""
     response: object = None
     help_requested: bool = parsed.is_help()
+    version_requested: bool = parsed.is_version()
 
     endpoint_status: dict = {
             "all": parsed.is_all(),
@@ -83,6 +84,9 @@ def main(args: list=sys.argv) -> None:
     if (invalid_args):
         print_invalid_args(invalid_args)
         sys.exit(1)
+
+    if (version_requested):
+        sys.exit("{0} {1}".format(NAME, VERSION))
 
     if (help_requested):
         sys.exit(dedent("""
