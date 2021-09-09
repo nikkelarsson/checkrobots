@@ -16,3 +16,5 @@
   - [ ] Move the "print_invalid_args" function to the "parsing.py" module.
 - [x] Delete the "print_headers" function from "main.py", as it is no longer
   needed there.
+- [ ] Create a new branch called "versionflags", and in that branch implement
+  the version flags.
