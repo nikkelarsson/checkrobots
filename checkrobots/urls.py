@@ -9,7 +9,8 @@ Date: September 5, 2021
 WEBSITES: dict = {
         "youtube": "https://www.youtube.com/robots.txt",
         "google": "https://www.google.fi/robots.txt",
-        "chess": "https://www.chess.com/robots.txt"
+        "chess": "https://www.chess.com/robots.txt",
+        "facebook": "https://www.facebook.com/robots.txt",
         }
 
 def gen_url(website: str) -> str:
