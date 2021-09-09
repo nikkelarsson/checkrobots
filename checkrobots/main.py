@@ -1,7 +1,7 @@
 """
 main.py – Web 'spider' that checks sites, and if they allow webscraping.
 Author: Niklas Larsson
-Date: 29.8.2021
+Date: August 29, 2021
 """
 
 from . import parsing

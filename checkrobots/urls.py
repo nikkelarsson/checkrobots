@@ -1,7 +1,7 @@
 """
 urls.py – List of websites to fetch robots.txt from.
 Author: Niklas Larsson
-Date: 5.9.2021
+Date: September 5, 2021
 """
 
 
