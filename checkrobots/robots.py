@@ -22,10 +22,10 @@ def print_allowed(robots_txt: str, sort: bool) -> None:
                 endpoints.append(line.replace("Allow: ", ""))
     if (sort):
         for index, line in enumerate(sorted(endpoints), 1):
-            print("Endpoint [{}] --> {}".format(index, line.strip()))
+            print("{}) {}".format(index, line.strip()))
     else:
         for index, line in enumerate(endpoints, 1):
-            print("Endpoint [{}] --> {}".format(index, line.strip()))
+            print("{}) {}".format(index, line.strip()))
 
 
 def print_disallowed(robots_txt: str, sort: bool) -> None:
