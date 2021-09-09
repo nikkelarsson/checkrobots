@@ -18,3 +18,5 @@
   needed there.
 - [x] Create a new branch called "versionflags", and in that branch implement
   the version flags.
+- [ ] Make the output when filtering endpoints in such way, that the "Endpoint
+  [endpoint_number]" field would be left as only with the index of the endpoint.
