@@ -101,6 +101,7 @@ def main(args: list=sys.argv) -> None:
                 Output control:
                 -q,  --quiet........... Make the output (except the results) quiet.
                 -s,  --sort............ Alphabetically sort the result (and header) fields.
+                -r,  --raw............. Print robots.txt "as is" without any filtering.
 
                 Headers:
                 -H,  --headers......... Print headers.
