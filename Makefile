@@ -31,7 +31,7 @@ reinstall:
 
 uninstall:
 	echo "Uninstalling checkrobots ..."
-	pip uninstall checkrobots
+	pip uninstall --yes checkrobots
 	echo "Uninstalling man -pages ..."
 	sudo rm /usr/local/man/man1/checkrobots.1
 	echo "All successfully uninstalled!"
