@@ -1,4 +1,4 @@
-.PHONY: checkrobots install uninstall
+.PHONY: checkrobots install install-editable uninstall
 PROG = checkrobots
 PYTHON = python3.8
 MAN_PAGES=$(shell pwd)/docs/checkrobots.1
@@ -11,6 +11,14 @@ checkrobots:
 install:
 	@echo "Installing $(PROG) ..."
 	$(PYTHON) -m pip install -qq .
+	@echo "Installing man -pages ..."
+	sudo mkdir -p /usr/local/man/man1
+	sudo cp $(MAN_PAGES) /usr/local/man/man1
+	@echo "All successfully installed!"
+
+install-editable:
+	@echo "Installing $(PROG) as editable ..."
+	$(PYTHON) -m pip install -qq -e .
 	@echo "Installing man -pages ..."
 	sudo mkdir -p /usr/local/man/man1
 	sudo cp $(MAN_PAGES) /usr/local/man/man1
