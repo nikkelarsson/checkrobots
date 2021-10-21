@@ -3,8 +3,8 @@ from setuptools import setup
 setup(
         name="checkrobots",
         version="1.0",
-        description="Simple tool to view various site's robots.txt.",
-        keywords="joke utility webscraping",
+        description="Simple tool to observe various sites' robots.txt files.",
+        keywords="utility webscraping",
         author="Niklas",
         packages=["checkrobots"],
         install_requires=["requests"],

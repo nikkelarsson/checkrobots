@@ -1,5 +1,6 @@
-.PHONY: checkrobots
-
+.PHONY: checkrobots install uninstall
+PROG = checkrobots
+PYTHON = python3.8
 MAN_PAGES=$(shell pwd)/docs/checkrobots.1
 
 checkrobots:
@@ -8,30 +9,16 @@ checkrobots:
 	@echo "TO REINSTALL: make reinstall"
 
 install:
-	echo "Installing checkrobots ..."
-	# Install the checkrobots Python -package.
-	pip install .
-	echo "Installing man -pages ..."
-	# Install man -pages. Create "man1" if it doesn't exist.
+	@echo "Installing $(PROG) ..."
+	$(PYTHON) -m pip install -qq .
+	@echo "Installing man -pages ..."
 	sudo mkdir -p /usr/local/man/man1
 	sudo cp $(MAN_PAGES) /usr/local/man/man1
-	sudo mandb
-	echo "All successfully installed!"
-
-reinstall:
-	echo "Re-installing checkrobots ..."
-	# Install the checkrobots Python -package.
-	pip install .
-	echo "Re-installing man -pages ..."
-	# Install man -pages. Create "man1" if it doesn't exist.
-	sudo mkdir -p /usr/local/man/man1
-	sudo cp $(MAN_PAGES) /usr/local/man/man1
-	sudo mandb
-	echo "All successfully re-installed!"
+	@echo "All successfully installed!"
 
 uninstall:
-	echo "Uninstalling checkrobots ..."
-	pip uninstall --yes checkrobots
-	echo "Uninstalling man -pages ..."
+	@echo "Uninstalling $(PROG) ..."
+	$(PYTHON) -m pip uninstall -qq --yes $(PROG)
+	@echo "Uninstalling man -pages ..."
 	sudo rm /usr/local/man/man1/checkrobots.1
-	echo "All successfully uninstalled!"
+	@echo "All successfully uninstalled!"
