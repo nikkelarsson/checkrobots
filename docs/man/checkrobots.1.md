@@ -15,7 +15,7 @@ checkrobots – Fetch and observe websites' robots.txt files.
 
 # DESCRIPTION
 checkrobots is a small and simple utility to observe various websites'
-robots.txt files. Thinking about the question "Is webscraping legal and
+robots.txt files. Thinking about the question "Is web-scraping legal and
 ethical?", checkrobots was written for the purpose of exploring this question,
 by letting the user / developer to make decisions, whether to perform any sort
 of webscraping on a certain site or not.
