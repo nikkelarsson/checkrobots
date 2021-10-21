@@ -16,10 +16,7 @@ import os
 from textwrap import dedent
 
 
-# This will be used to determine the language this
-# program generally will output its information with.
 LANG: str = os.getenv("LANG")
-
 NAME: str = "checkrobots"
 VERSION: str = "1.0"
 
