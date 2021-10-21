@@ -11,7 +11,7 @@ checkrobots – Fetch and observe websites' robots.txt files.
 **checkrobots** \[*–q* | *––quiet*\] \[*–s* | *––sort*\] \[*–a* | *––all*\] \<*website*\> \
 **checkrobots** \[*–q* | *––quiet*\] \[*–r* | *––raw*\] \<*website*\> \
 **checkrobots** \[*–h* | *––help*\] \
-**checkrobots** \[*–V* | *––version*\] \
+**checkrobots** \[*–V* | *––version*\]
 
 # DESCRIPTION
 checkrobots is a small and simple utility to observe various websites'
